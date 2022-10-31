@@ -83,6 +83,7 @@
     </ClCompile>
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="SceneCameraHandler.cpp" />
+    <ClCompile Include="EngineTime.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AppWindow.h">
@@ -138,6 +139,7 @@
     </ClInclude>
     <ClInclude Include="Camera.h" />
     <ClInclude Include="SceneCameraHandler.h" />
+    <ClInclude Include="EngineTime.h" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="VertexShader.hlsl">

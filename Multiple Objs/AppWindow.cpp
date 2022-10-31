@@ -6,6 +6,7 @@
 #include "Plane.h"
 #include <stdlib.h>
 #include "InputSystem.h"
+#include "SceneCameraHandler.h"
 
 struct vertex
 {
@@ -63,44 +64,46 @@ void AppWindow::update()
 	temp.setRotationX(m_delta_scale);
 	cc.m_world *= temp;*/
 
-	cc.m_world.setIdentity();
+	//cc.m_world.setIdentity();
 
-	Matrix4x4 world_cam;
-	world_cam.setIdentity();
+	//Matrix4x4 world_cam;
+	//world_cam.setIdentity();
 
-	temp.setIdentity();
-	temp.setRotationX(m_rot_x);
-	world_cam *= temp;
+	//temp.setIdentity();
+	//temp.setRotationX(m_rot_x);
+	//world_cam *= temp;
 
-	temp.setIdentity();
-	temp.setRotationY(m_rot_y);
-	world_cam *= temp;
+	//temp.setIdentity();
+	//temp.setRotationY(m_rot_y);
+	//world_cam *= temp;
 
-	Vector3D new_pos = m_world_cam.getTranslation()+ world_cam.getZDirection()*(m_forward*0.3f);
+	//Vector3D new_pos = m_world_cam.getTranslation()+ world_cam.getZDirection()*(m_forward*0.3f);
 
-	new_pos = new_pos + world_cam.getXDirection() * (m_rightward * 0.3f);
+	//new_pos = new_pos + world_cam.getXDirection() * (m_rightward * 0.3f);
 
-	world_cam.setTranslation(new_pos);
-	m_world_cam = world_cam;
+	//world_cam.setTranslation(new_pos);
+	//m_world_cam = world_cam;
 
-	world_cam.inverse();
+	//world_cam.inverse();
 
 
-	viewMatrix = world_cam;
-	/*projectionMatrix.setOrthoLH
-	(
-		(this->getClientWindowRect().right - this->getClientWindowRect().left)/300.0f,
-		(this->getClientWindowRect().bottom - this->getClientWindowRect().top)/300.0f,
-		-4.0f,
-		4.0f
-	);*/
+	//viewMatrix = world_cam;
+	///*projectionMatrix.setOrthoLH
+	//(
+	//	(this->getClientWindowRect().right - this->getClientWindowRect().left)/300.0f,
+	//	(this->getClientWindowRect().bottom - this->getClientWindowRect().top)/300.0f,
+	//	-4.0f,
+	//	4.0f
+	//);*/
 
-	int width = (this->getClientWindowRect().right - this->getClientWindowRect().left);
-	int height = (this->getClientWindowRect().bottom - this->getClientWindowRect().top);
+	//int width = (this->getClientWindowRect().right - this->getClientWindowRect().left);
+	//int height = (this->getClientWindowRect().bottom - this->getClientWindowRect().top);
 
-	projectionMatrix.setPerspectiveFovLV(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
+	//projectionMatrix.setPerspectiveFovLV(1.57f, ((float)width / (float)height), 0.1f, 100.0f);
 
 	//m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
+
+	SceneCameraHandler::getInstance()->update();
 }
 
 
@@ -121,7 +124,8 @@ void AppWindow::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	m_world_cam.setTranslation(Vector3D(0, 0, -2));
+	SceneCameraHandler::initialize();
+	
 
 	void* shader_byte_code = nullptr;
 	size_t size_shader = 0;
@@ -152,11 +156,11 @@ void AppWindow::onCreate()
 	cube->setScale((Vector3D(.25, .25, .25)));
 	gameObjList.push_back(cube);
 
-	plane = new Plane("two", shader_byte_code, size_shader);
+	/*plane = new Plane("two", shader_byte_code, size_shader);
 	plane->setAnimSpeed(0);
 	plane->setPosition(Vector3D(0, 0, 0));
 	plane->setScale((Vector3D(.75, .01, .75)));
-	gameObjList.push_back(plane);
+	gameObjList.push_back(plane);*/
 
 	GraphicsEngine::get()->releaseCompiledShader();
 

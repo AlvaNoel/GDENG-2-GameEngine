@@ -16,9 +16,76 @@ C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(101,44): warning C4244: '=': co
 C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(102,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(103,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
 C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(147,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-C:\Users\noela\Desktop\Multiple Objs\AppWindow.cpp(158,27): warning C4305: 'argument': truncation from 'double' to 'float'
-C:\Users\noela\Desktop\Multiple Objs\AppWindow.cpp(290,64): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-C:\Users\noela\Desktop\Multiple Objs\AppWindow.cpp(290,51): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-  InputSystem.cpp
+  main.cpp
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(37,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(38,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(39,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(40,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(45,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(46,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(47,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(48,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(53,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(54,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(55,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(56,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(100,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(101,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(102,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(103,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(147,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): error C2259: 'AppWindow': cannot instantiate abstract class
+C:\Users\noela\Desktop\Multiple Objs\AppWindow.h(18): message : see declaration of 'AppWindow'
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): message : due to following members:
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): message : 'void InputListener::onKeyDown(int)': is abstract
+C:\Users\noela\Desktop\Multiple Objs\InputListener.h(18): message : see declaration of 'InputListener::onKeyDown'
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): message : 'void InputListener::onKeyUp(int)': is abstract
+C:\Users\noela\Desktop\Multiple Objs\InputListener.h(19): message : see declaration of 'InputListener::onKeyUp'
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): message : 'void InputListener::onMouseMove(const Point &)': is abstract
+C:\Users\noela\Desktop\Multiple Objs\InputListener.h(22): message : see declaration of 'InputListener::onMouseMove'
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): message : 'void InputListener::onLeftMouseDown(const Point &)': is abstract
+C:\Users\noela\Desktop\Multiple Objs\InputListener.h(24): message : see declaration of 'InputListener::onLeftMouseDown'
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): message : 'void InputListener::onLeftMouseUp(const Point &)': is abstract
+C:\Users\noela\Desktop\Multiple Objs\InputListener.h(25): message : see declaration of 'InputListener::onLeftMouseUp'
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): message : 'void InputListener::onRightMouseDown(const Point &)': is abstract
+C:\Users\noela\Desktop\Multiple Objs\InputListener.h(27): message : see declaration of 'InputListener::onRightMouseDown'
+C:\Users\noela\Desktop\Multiple Objs\main.cpp(7,12): message : 'void InputListener::onRightMouseUp(const Point &)': is abstract
+C:\Users\noela\Desktop\Multiple Objs\InputListener.h(28): message : see declaration of 'InputListener::onRightMouseUp'
+  Plane.cpp
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(37,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(38,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(39,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(40,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(45,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(46,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(47,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(48,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(53,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(54,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(55,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(56,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(100,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(101,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(102,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(103,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(147,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  SceneCameraHandler.cpp
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(37,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(38,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(39,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(40,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(45,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(46,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(47,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(48,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(53,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(54,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(55,17): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(56,20): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(100,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(101,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(102,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(103,44): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\Matrix4x4.h(147,16): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+C:\Users\noela\Desktop\Multiple Objs\SceneCameraHandler.cpp(23,55): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
   Generating Code...
-  DirectXGame.vcxproj -> C:\Users\noela\Desktop\Multiple Objs\x64\Debug\DirectXGame.exe

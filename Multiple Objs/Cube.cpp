@@ -3,6 +3,8 @@
 #include "SwapChain.h"
 #include "DeviceContext.h"
 #include <iostream>
+#include "SceneCameraHandler.h"
+#include "Matrix4x4.h"
 
 Cube::Cube(string name, void* shaderByteCode, size_t sizeShader):AGameObject(name)
 {
@@ -111,6 +113,12 @@ void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* 
 	//std::cout << this->getLocalPosition().m_x;
 	cbData.viewMatrix = viewMatrix;
 	cbData.projMatrix = projectionMatrix;
+
+	Matrix4x4 cameraMatrix = SceneCameraHandler::getInstance()->getSceneCameraViewMatrix();
+	cbData.viewMatrix = cameraMatrix;
+
+	float aspectRatio = (float)width / (float)height;
+	cbData.projMatrix.setPerspectiveFovLV(aspectRatio, aspectRatio, 0.1f, 1000.0f);
 
 	this->constantBuffer->update(deviceContext, &cbData);
 	deviceContext->setConstantBuffer(vertexShader, this->constantBuffer);

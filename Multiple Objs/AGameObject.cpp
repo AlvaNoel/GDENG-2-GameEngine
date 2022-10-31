@@ -9,6 +9,11 @@ AGameObject::~AGameObject()
 {
 }
 
+void AGameObject::draw(int width, int height, VertexShader* vertexShader, PixelShader* pixelShader)
+{
+
+}
+
 void AGameObject::setPosition(float x, float y, float z)
 {
 	this->localPosition = Vector3D(x, y, z);
