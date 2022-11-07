@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include "InputSystem.h"
+#include "EngineTime.h"
 
 Camera::Camera(string name) : AGameObject(name)
 {
@@ -22,7 +23,7 @@ void Camera::update(float deltaTime)
 	float x = localPos.getX();
 	float y = localPos.getY();
 	float z = localPos.getZ();
-	float moveSpeed = 10.0f;
+	float moveSpeed = 10.f;
 
 	if (InputSystem::get()->isKeyDown('W')) {
 		z += deltaTime * moveSpeed;
@@ -35,12 +36,22 @@ void Camera::update(float deltaTime)
 		this->updateViewMatrix();
 	}
 	else if (InputSystem::get()->isKeyDown('A')) {
-		x += deltaTime * moveSpeed;
+		x -= deltaTime * moveSpeed;
 		this->setPosition(x, y, z);
 		this->updateViewMatrix();
 	}
 	else if (InputSystem::get()->isKeyDown('D')) {
-		x -= deltaTime * moveSpeed;
+		x += deltaTime * moveSpeed;
+		this->setPosition(x, y, z);
+		this->updateViewMatrix();
+	}
+	else if (InputSystem::get()->isKeyDown('Q')) {
+		y -= deltaTime * moveSpeed;
+		this->setPosition(x, y, z);
+		this->updateViewMatrix();
+	}
+	else if (InputSystem::get()->isKeyDown('E')) {
+		y += deltaTime * moveSpeed;
 		this->setPosition(x, y, z);
 		this->updateViewMatrix();
 	}
@@ -67,11 +78,12 @@ void Camera::onMouseMove(const Point& mouse_pos)
 		float y = localRot.getY();
 		float z = localRot.getZ();
 		
-		float speed = 0.005f;
-		x += mouse_pos.m_y * speed;
-		y += mouse_pos.m_x * speed;
+		float speed = 0.05f;
+		x += (mouse_pos.m_y - (768 / 2.0f))* speed * EngineTime::getDeltaTime();
+		y += (mouse_pos.m_x - (1024 / 2.0f)) * speed * EngineTime::getDeltaTime();
 
 		this->setRotation(Vector3D(x, y, z));
+		InputSystem::get()->setCursorPosition(Point(1024 / 2.0f, 768 / 2.0f));
 		this->updateViewMatrix();
 	}
 }

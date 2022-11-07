@@ -12,16 +12,16 @@ Cube::Cube(string name, void* shaderByteCode, size_t sizeShader):AGameObject(nam
 	Vertex quadList[] = {
 		//X, Y, Z
 		//FRONT FACE
-		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,0,0),  Vector3D(0.2f,0,0) },
-		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(1,1,0), Vector3D(0.2f,0.2f,0) },
-		{Vector3D(0.5f,0.5f,-0.5f),   Vector3D(1,1,0),  Vector3D(0.2f,0.2f,0) },
-		{Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(1,0,0), Vector3D(0.2f,0,0) },
+		{Vector3D(-0.5f,-0.5f,-0.5f),    Vector3D(1,1,0),  Vector3D(.5f,1,0) },
+		{Vector3D(-0.5f,0.5f,-0.5f),    Vector3D(.5f,1,0), Vector3D(0,1,0) },
+		{Vector3D(0.5f,0.5f,-0.5f),   Vector3D(0,1,0),  Vector3D(0,1,.5f) },
+		{Vector3D(0.5f,-0.5f,-0.5f),     Vector3D(0,1,.5f), Vector3D(0,1,1) },
 
 		//BACK FACE
-		{Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,0), Vector3D(0,0.2f,0) },
-		{Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,0.2f,0.2f) },
-		{Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,1,1),  Vector3D(0,0.2f,0.2f) },
-		{Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(0,1,0), Vector3D(0,0.2f,0) },
+		{Vector3D(0.5f,-0.5f,0.5f),    Vector3D(0,1,1), Vector3D(0,.5f,1) },
+		{Vector3D(0.5f,0.5f,0.5f),    Vector3D(0,.5f,1), Vector3D(0,0,1) },
+		{Vector3D(-0.5f,0.5f,0.5f),   Vector3D(0,0,1),  Vector3D(.5f,0,1) },
+		{Vector3D(-0.5f,-0.5f,0.5f),     Vector3D(.5f,0,1), Vector3D(1,0,1) },
 	};
 
 	this->vertexBuffer = GraphicsEngine::get()->createVertexBuffer();
@@ -86,39 +86,47 @@ void Cube::draw(int width, int height, VertexShader* vertexShader, PixelShader* 
 		this->deltaPos = 0.26f;
 		this->speed *= -1.0f;
 	}
-	else {
-		this->deltaPos += this->deltaTime * 0.1f;
-	}*/
-
+	else {*/
+		this->deltaPos += this->deltaTime * speed;
 	
-	//Matrix4x4 scaleMatrix; scaleMatrix.setScale(Vector3D::lerp(Vector3D(0.5f, 0.5f, 0.5f), Vector3D(1.0f, 1.0f, 1.0f), (sin(this->deltaPos * this->speed) + 1.0f) / 2.0f));
+
+	//Matrix4x4 scaleMatrix; scaleMatrix.setScale(Vector3D::lerp(Vector3D(1.0f, 1.0f, 1.0f), Vector3D(3, 3, .01f), (sin(this->deltaPos * this->speed) + 1.0f) / 2.0f));
 	//cbData.worldMatrix = cbData.worldMatrix.multiplyTo(scaleMatrix);
 
-	Matrix4x4 trans;
-	trans.setTranslation(this->getLocalPosition());
-	//cbData.worldMatrix.setTranslation(this->getLocalPosition());
+	Matrix4x4 allMatrix; allMatrix.setIdentity();
+	Matrix4x4 translationMatrix; translationMatrix.setIdentity();  translationMatrix.setTranslation(this->getLocalPosition());
+	Matrix4x4 scaleMatrix; scaleMatrix.setScale(this->getLocalScale());
+	Vector3D rotation = this->getLocalRotation();
+	Matrix4x4 zMatrix; zMatrix.setRotationZ(rotation.getZ() );
+	Matrix4x4 xMatrix; xMatrix.setRotationX(rotation.getX() );
+	Matrix4x4 yMatrix; yMatrix.setRotationY(rotation.getY() );
 
-	cbData.worldMatrix.setScale(this->getLocalScale());
-	Matrix4x4 zMatrix; zMatrix.setIdentity();
-	zMatrix.setRotationZ(getLocalRotation().m_z);
+	/*while (this->getLocalPosition().getZ() < .25f || this->getLocalPosition().getX() < .25f || this->getLocalPosition().getY() < .25f)
+	{
+		translationMatrix.setTranslation(Vector3D(this->getLocalPosition().getX() - (this->deltaTime * speed), this->getLocalPosition().getY() - (this->deltaTime * speed), this->getLocalPosition().getZ() - (this->deltaTime * speed)));
+	}*/
 
-	Matrix4x4 xMatrix; xMatrix.setIdentity();
-	xMatrix.setRotationX(getLocalRotation().m_x);
+	//translationMatrix.setTranslation(Vector3D((translationMatrix.getTranslation().getX() - (sin(this->deltaPos * this->speed))), (translationMatrix.getTranslation().getY() - (sin(this->deltaPos * this->speed))), 0));
 
-	Matrix4x4 yMatrix; yMatrix.setIdentity();
-	yMatrix.setRotationY(getLocalRotation().m_y);
-
-	cbData.worldMatrix = cbData.worldMatrix.multiplyTo(xMatrix.multiplyTo(yMatrix.multiplyTo(zMatrix)));
-	cbData.worldMatrix *= trans;
+	//Scale --> Rotate --> Transform as recommended order.
+	Matrix4x4 rotMatrix; rotMatrix.setIdentity();
+	rotMatrix = rotMatrix.multiplyTo(xMatrix.multiplyTo(yMatrix.multiplyTo(zMatrix)));
+	allMatrix = allMatrix.multiplyTo(scaleMatrix.multiplyTo(rotMatrix));
+	allMatrix = allMatrix.multiplyTo(translationMatrix);
+	cbData.worldMatrix = allMatrix;
+	
+	//cbData.worldMatrix.setIdentity();
+	
 	//std::cout << this->getLocalPosition().m_x;
-	cbData.viewMatrix = viewMatrix;
-	cbData.projMatrix = projectionMatrix;
+	//cbData.viewMatrix = viewMatrix;
+	//cbData.projMatrix = projectionMatrix;
 
 	Matrix4x4 cameraMatrix = SceneCameraHandler::getInstance()->getSceneCameraViewMatrix();
 	cbData.viewMatrix = cameraMatrix;
 
 	float aspectRatio = (float)width / (float)height;
-	cbData.projMatrix.setPerspectiveFovLV(aspectRatio, aspectRatio, 0.1f, 1000.0f);
+	//cbData.projMatrix.setPerspectiveFovLV(aspectRatio, aspectRatio, 0.1f, 1000.0f);
+	cbData.projMatrix.setOrthoLH(width / 300.0f, height / 300.0f, -4.0f, 100);
 
 	this->constantBuffer->update(deviceContext, &cbData);
 	deviceContext->setConstantBuffer(vertexShader, this->constantBuffer);

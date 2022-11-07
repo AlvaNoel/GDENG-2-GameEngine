@@ -34,17 +34,17 @@ public:
 
 	float getX() const
 	{
-		return this->x;
+		return this->m_x;
 	}
 
 	float getY() const
 	{
-		return this->y;
+		return this->m_y;
 	}
 
 	float getZ() const
 	{
-		return this->z;
+		return this->m_z;
 	}
 
 	~Vector3D()
@@ -53,7 +53,4 @@ public:
 
 public:
 	float m_x, m_y, m_z;
-	float x = 0.0f;
-	float y = 0.0f;
-	float z = 0.0f;
 };

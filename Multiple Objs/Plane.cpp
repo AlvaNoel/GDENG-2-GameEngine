@@ -3,6 +3,8 @@
 #include "SwapChain.h"
 #include "DeviceContext.h"
 #include <iostream>
+#include "SceneCameraHandler.h"
+#include "Matrix4x4.h"
 
 #include "AppWindow.h"
 
@@ -94,25 +96,32 @@ void Plane::draw(int width, int height, VertexShader* vertexShader, PixelShader*
 	//Matrix4x4 scaleMatrix; scaleMatrix.setScale(Vector3D::lerp(Vector3D(0.5f, 0.5f, 0.5f), Vector3D(1.0f, 1.0f, 1.0f), (sin(this->deltaPos * this->speed) + 1.0f) / 2.0f));
 	//cbData.worldMatrix = cbData.worldMatrix.multiplyTo(scaleMatrix);
 
-	Matrix4x4 trans;
-	trans.setTranslation(this->getLocalPosition());
-	//cbData.worldMatrix.setTranslation(this->getLocalPosition());
+	Matrix4x4 allMatrix; allMatrix.setIdentity();
+	Matrix4x4 translationMatrix; translationMatrix.setIdentity();  translationMatrix.setTranslation(this->getLocalPosition());
+	Matrix4x4 scaleMatrix; scaleMatrix.setScale(this->getLocalScale());
+	Vector3D rotation = this->getLocalRotation();
+	Matrix4x4 zMatrix; zMatrix.setRotationZ(rotation.getZ());
+	Matrix4x4 xMatrix; xMatrix.setRotationX(rotation.getX());
+	Matrix4x4 yMatrix; yMatrix.setRotationY(rotation.getY());
 
-	cbData.worldMatrix.setScale(this->getLocalScale());
-	Matrix4x4 zMatrix; zMatrix.setIdentity();
-	zMatrix.setRotationZ(0);
+	//Scale --> Rotate --> Transform as recommended order.
+	Matrix4x4 rotMatrix; rotMatrix.setIdentity();
+	rotMatrix = rotMatrix.multiplyTo(xMatrix.multiplyTo(yMatrix.multiplyTo(zMatrix)));
+	allMatrix = allMatrix.multiplyTo(scaleMatrix.multiplyTo(rotMatrix));
+	allMatrix = allMatrix.multiplyTo(translationMatrix);
+	cbData.worldMatrix = allMatrix;
 
-	Matrix4x4 xMatrix; xMatrix.setIdentity();
-	xMatrix.setRotationX(deltaPos * this->speed);
-
-	Matrix4x4 yMatrix; yMatrix.setIdentity();
-	yMatrix.setRotationY(deltaPos * this->speed);
-
-	cbData.worldMatrix = cbData.worldMatrix.multiplyTo(xMatrix.multiplyTo(yMatrix.multiplyTo(zMatrix)));
-	cbData.worldMatrix *= trans;
+	//cbData.worldMatrix = cbData.worldMatrix.multiplyTo(xMatrix.multiplyTo(yMatrix.multiplyTo(zMatrix)));
+	//cbData.worldMatrix *= trans;
 	//std::cout << this->getLocalPosition().m_x;
-	cbData.viewMatrix.setIdentity();
-	cbData.projMatrix.setOrthoLH(width / 400.0f, height / 400.0f, -4.0f, 4.0f);
+	//cbData.viewMatrix.setIdentity();
+	//cbData.projMatrix.setOrthoLH(width / 400.0f, height / 400.0f, -4.0f, 4.0f);
+
+	Matrix4x4 cameraMatrix = SceneCameraHandler::getInstance()->getSceneCameraViewMatrix();
+	cbData.viewMatrix = cameraMatrix;
+
+	float aspectRatio = (float)width / (float)height;
+	cbData.projMatrix.setPerspectiveFovLV(aspectRatio, aspectRatio, 0.1f, 1000.0f);
 
 	this->constantBuffer->update(deviceContext, &cbData);
 	deviceContext->setConstantBuffer(vertexShader, this->constantBuffer);

@@ -9,13 +9,12 @@
 #include "VertexShader.h"
 #include "PixelShader.h"
 #include <vector>
-#include "InputListener.h"
 #include "Matrix4x4.h"
 
 class Cube;
 class Plane;
 class AGameObject;
-class AppWindow: public Window, public InputListener
+class AppWindow: public Window
 {
 public:
 	AppWindow();

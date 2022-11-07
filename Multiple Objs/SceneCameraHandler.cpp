@@ -28,10 +28,14 @@ Matrix4x4 SceneCameraHandler::getSceneCameraViewMatrix()
     return this->sceneCamera->getViewMatrix();
 }
 
+Camera* SceneCameraHandler::getCamera()
+{
+    return sceneCamera;
+}
+
 SceneCameraHandler::SceneCameraHandler()
 {
     this->sceneCamera = new Camera("SceneCamera");
-    this->sceneCamera->setPosition(Vector3D(0, 0, -2));
 }
 SceneCameraHandler::~SceneCameraHandler()
 {

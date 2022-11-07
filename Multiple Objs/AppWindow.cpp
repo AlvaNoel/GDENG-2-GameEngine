@@ -6,7 +6,9 @@
 #include "Plane.h"
 #include <stdlib.h>
 #include "InputSystem.h"
+#include "InputListener.h"
 #include "SceneCameraHandler.h"
+#include "EngineTime.h"
 
 struct vertex
 {
@@ -103,7 +105,7 @@ void AppWindow::update()
 
 	//m_cb->update(GraphicsEngine::get()->getImmediateDeviceContext(), &cc);
 
-	SceneCameraHandler::getInstance()->update();
+	
 }
 
 
@@ -114,8 +116,9 @@ AppWindow::~AppWindow()
 void AppWindow::onCreate()
 {
 	Window::onCreate();
-
-	InputSystem::get()->addListener(this);
+	EngineTime::initialize();
+	
+	//InputSystem::get()->addListener(SceneCameraHandler::getInstance()->getCamera());
 	InputSystem::get()->showCursor(false);
 
 	GraphicsEngine::get()->init();
@@ -124,7 +127,7 @@ void AppWindow::onCreate()
 	RECT rc = this->getClientWindowRect();
 	m_swap_chain->init(this->m_hwnd, rc.right - rc.left, rc.bottom - rc.top);
 
-	SceneCameraHandler::initialize();
+	
 	
 
 	void* shader_byte_code = nullptr;
@@ -136,30 +139,74 @@ void AppWindow::onCreate()
 
 	m_vs=GraphicsEngine::get()->createVertexShader(shader_byte_code, size_shader);
 
-	//for(int i =0;i<3;i++)
-	//{
-	//	float randnumX = rand() % 100 - rand() % 100;
-	//	float randnumY = rand() % 100 - rand() % 100;
-	//	randnumX /= 100;
-	//	randnumY /= 100;
+	for(int i =0;i<15;i++)
+	{
+		/*float randnumX = rand() % 400 - rand() % 400;
+		float randnumY = rand() % 400 - rand() % 400;
+		randnumX /= 100;
+		randnumY /= 100;*/
 
-	//	cube = new Cube("one", shader_byte_code, size_shader);
-	//	cube->setAnimSpeed(0);
-	//	cube->setPosition(Vector3D(randnumX, randnumY, 0));
-	//	cube->setScale((Vector3D(.5, .5, .5)));
-	//	gameObjList.push_back(cube);
-	//}
+		cube = new Cube(to_string(i), shader_byte_code, size_shader);
+		cube->setAnimSpeed(0);
+		cube->setPosition(Vector3D(0, 0, 0));
+		cube->setScale((Vector3D(.025f, .75f, .5f)));
+		gameObjList.push_back(cube);
+	}
 
-	cube = new Cube("one", shader_byte_code, size_shader);
-	cube->setAnimSpeed(0);
+	//FIRST BASE
+	gameObjList.at(0)->setPosition(Vector3D(1, -1, 0));
+	gameObjList.at(0)->setRotation(Vector3D(0, 0, .25f));
+	gameObjList.at(1)->setPosition(Vector3D(.80f, -1, 0));
+	gameObjList.at(1)->setRotation(Vector3D(0, 0, -.25f));
+
+	gameObjList.at(2)->setPosition(Vector3D(.60, -1, 0));
+	gameObjList.at(2)->setRotation(Vector3D(0, 0, .25f));
+	gameObjList.at(3)->setPosition(Vector3D(.40f, -1, 0));
+	gameObjList.at(3)->setRotation(Vector3D(0, 0, -.25f));
+
+	gameObjList.at(4)->setPosition(Vector3D(.20f, -1, 0));
+	gameObjList.at(4)->setRotation(Vector3D(0, 0, .25f));
+	gameObjList.at(5)->setPosition(Vector3D(0, -1, 0));
+	gameObjList.at(5)->setRotation(Vector3D(0, 0, -.25f));
+
+	gameObjList.at(6)->setPosition(Vector3D(.70f, -.625, 0));
+	gameObjList.at(6)->setRotation(Vector3D(0, 0, 1.575));
+	gameObjList.at(7)->setPosition(Vector3D(.30f, -.625, 0));
+	gameObjList.at(7)->setRotation(Vector3D(0, 0, 1.575));
+
+	//SECOND BASE
+
+	gameObjList.at(8)->setPosition(Vector3D(.8, -.25, 0));
+	gameObjList.at(8)->setRotation(Vector3D(0, 0, .25f));
+	gameObjList.at(9)->setPosition(Vector3D(.60f, -.25, 0));
+	gameObjList.at(9)->setRotation(Vector3D(0, 0, -.25f));
+
+	gameObjList.at(10)->setPosition(Vector3D(.40, -.25, 0));
+	gameObjList.at(10)->setRotation(Vector3D(0, 0, .25f));
+	gameObjList.at(11)->setPosition(Vector3D(.20f, -.25, 0));
+	gameObjList.at(11)->setRotation(Vector3D(0, 0, -.25f));
+
+	gameObjList.at(12)->setPosition(Vector3D(.50f, .125f, 0));
+	gameObjList.at(12)->setRotation(Vector3D(0, 0, 1.575));
+
+	//THIRD BASE
+
+	gameObjList.at(13)->setPosition(Vector3D(.60, .50, 0));
+	gameObjList.at(13)->setRotation(Vector3D(0, 0, .25f));
+	gameObjList.at(14)->setPosition(Vector3D(.40f, .50, 0));
+	gameObjList.at(14)->setRotation(Vector3D(0, 0, -.25f));
+
+
+	/*cube = new Cube("one", shader_byte_code, size_shader);
+	cube->setAnimSpeed(1);
 	cube->setPosition(Vector3D(0, 0, 0));
-	cube->setScale((Vector3D(.25, .25, .25)));
-	gameObjList.push_back(cube);
+	cube->setScale((Vector3D(1, 1, 1)));
+	gameObjList.push_back(cube);*/
 
 	/*plane = new Plane("two", shader_byte_code, size_shader);
-	plane->setAnimSpeed(0);
+	plane->setAnimSpeed(10);
 	plane->setPosition(Vector3D(0, 0, 0));
-	plane->setScale((Vector3D(.75, .01, .75)));
+	plane->setScale((Vector3D(2.75, .01, 2.75)));
 	gameObjList.push_back(plane);*/
 
 	GraphicsEngine::get()->releaseCompiledShader();
@@ -168,6 +215,8 @@ void AppWindow::onCreate()
 	GraphicsEngine::get()->compilePixelShader(L"PixelShader.hlsl", "psmain", &shader_byte_code, &size_shader);
 	m_ps = GraphicsEngine::get()->createPixelShader(shader_byte_code, size_shader);
 	GraphicsEngine::get()->releaseCompiledShader();
+
+	SceneCameraHandler::initialize();
 
 }
 
@@ -198,16 +247,17 @@ void AppWindow::onUpdate()
 	//GraphicsEngine::get()->getImmediateDeviceContext()->setVertexShader(m_vs);
 	//GraphicsEngine::get()->getImmediateDeviceContext()->setPixelShader(m_ps);
 
+	//update();
+
 	for(int i =0; i < gameObjList.size();i++)
 	{
-		gameObjList[i]->objectToCamera(viewMatrix, projectionMatrix);
-		gameObjList[i]->update(m_delta_time);
+		gameObjList[i]->update(EngineTime::getDeltaTime());
 		gameObjList[i]->draw(rc.right - rc.left, rc.bottom - rc.top, m_vs, m_ps);
 	}
 
+	SceneCameraHandler::getInstance()->update();
 
-
-	update();
+	std::cout << SceneCameraHandler::getInstance()->getCamera()->getLocalPosition().m_z << std::endl;
 
 	
 
@@ -242,12 +292,12 @@ void AppWindow::onDestroy()
 
 void AppWindow::onFocus()
 {
-	InputSystem::get()->addListener(this);
+	//InputSystem::get()->addListener(SceneCameraHandler::getInstance()->getCamera());
 }
 
 void AppWindow::onKillFocus()
 {
-	InputSystem::get()->removeListener(this);
+	//InputSystem::get()->removeListener(SceneCameraHandler::getInstance()->getCamera());
 }
 
 //void AppWindow::onKeyDown(int key)
